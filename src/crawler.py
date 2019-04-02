@@ -103,5 +103,5 @@ if __name__=="__main__":
     print ("Fetching flight details")
     scraped_data = parse(source,destination,date)
     print ("Writing data to output file")
-    with open('%s-%s-%s-flight-results.json'%(source,destination,format_date),'w') as fp:
+    with open('./data/%s-%s-%s-flight-results.json'%(source,destination,format_date),'w') as fp:
          json.dump(scraped_data,fp,indent = 4)
