@@ -1,5 +1,6 @@
 import json
 import requests
+import time
 from lxml import html
 from collections import OrderedDict
 import argparse
@@ -101,7 +102,15 @@ if __name__=="__main__":
     format_date = ''.join(date.split('/'))
     print(format_date)
     print ("Fetching flight details")
-    scraped_data = parse(source,destination,date)
+    
     print ("Writing data to output file")
-    with open('./data/%s-%s-%s-flight-results.json'%(source,destination,format_date),'w') as fp:
-         json.dump(scraped_data,fp,indent = 4)
+
+    destinations = ['cdg', 'las', 'mad', 'mex', 'mia', 'nyc', 'rio', 'rom', 'sdq', 'cuz', 'aqp']
+    dates = ['05/01/2019', '07/01/2019', '10/01/2019']
+    for destination in destinations:
+        for date in dates:
+            format_date = ''.join(date.split('/'))
+            scraped_data = parse(source,destination,date)
+            with open('./data/%s-%s-%s-flight-results.json'%(source,destination,format_date),'w') as fp:
+                    json.dump(scraped_data,fp,indent = 4)
+            time.sleep(5)
